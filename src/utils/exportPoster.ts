@@ -39,6 +39,12 @@ export const triggerFestivalCelebration = () => {
   }, 250);
 };
 
+const getOptimalPixelRatio = (element: HTMLElement): number => {
+  const width = element.offsetWidth || 360;
+  // Ensure the exported poster is at least 1440px wide for ultra-sharp clarity on all screens
+  return Math.max(1440 / width, 3);
+};
+
 /**
  * Generates a high-resolution PNG from the poster element
  */
@@ -47,17 +53,19 @@ export const exportPosterAsImage = async (
   studentName: string = 'Attendee'
 ): Promise<ExportResult> => {
   try {
-    // Generate high resolution PNG
+    const ratio = getOptimalPixelRatio(element);
+
+    // Generate ultra high resolution PNG
     const dataUrl = await toPng(element, {
       quality: 0.98,
-      pixelRatio: 2.5, // 2.5x retina clarity for crisp high-res output
+      pixelRatio: ratio,
       cacheBust: true,
       skipFonts: true,
     });
 
     const blob = await toBlob(element, {
       quality: 0.98,
-      pixelRatio: 2.5,
+      pixelRatio: ratio,
       cacheBust: true,
       skipFonts: true,
     });
@@ -98,9 +106,10 @@ export const generatePosterBlob = async (
   element: HTMLElement
 ): Promise<Blob | null> => {
   try {
+    const ratio = getOptimalPixelRatio(element);
     return await toBlob(element, {
       quality: 0.98,
-      pixelRatio: 2.5,
+      pixelRatio: ratio,
       cacheBust: true,
       skipFonts: true,
     });

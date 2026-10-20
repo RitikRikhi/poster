@@ -105,6 +105,11 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
             height: '37.0%',
             clipPath:
               'polygon(9% 0%, 91% 0%, 100% 7%, 100% 93%, 91% 100%, 9% 100%, 0% 93%, 0% 7%)',
+            transform: 'translateZ(0)',
+            WebkitTransform: 'translateZ(0)',
+            backfaceVisibility: 'hidden',
+            WebkitBackfaceVisibility: 'hidden',
+            willChange: 'transform',
           }}
         >
           <img
@@ -116,6 +121,13 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
                 : 'anonymous'
             }
             className="w-full h-full object-cover object-top"
+            style={{
+              imageRendering: '-webkit-optimize-contrast' as any,
+              transform: 'translateZ(0)',
+              WebkitTransform: 'translateZ(0)',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+            }}
           />
         </div>
       )}

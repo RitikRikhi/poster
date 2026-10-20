@@ -55,6 +55,70 @@ const ROLE_THEME_COLORS: Record<
   },
 };
 
+/**
+ * Normalizes gallery images so modern high-MP phone cameras (12MP–50MP)
+ * don't choke the mobile GPU texture limit or get blurred by aggressive browser decimation.
+ * Applies high-quality bicubic smoothing up to 2048px.
+ */
+const processGalleryImage = (file: File): Promise<string> => {
+  return new Promise((resolve) => {
+    const objectUrl = URL.createObjectURL(file);
+    const img = new Image();
+
+    img.onload = () => {
+      URL.revokeObjectURL(objectUrl);
+
+      const naturalW = img.naturalWidth || img.width;
+      const naturalH = img.naturalHeight || img.height;
+
+      // 2048px is the optimal dimension for crisp rendering without GPU texture downsampling
+      const maxDimension = 2048;
+
+      let targetW = naturalW;
+      let targetH = naturalH;
+
+      if (naturalW > maxDimension || naturalH > maxDimension) {
+        if (naturalW >= naturalH) {
+          targetW = maxDimension;
+          targetH = Math.round((naturalH * maxDimension) / naturalW);
+        } else {
+          targetH = maxDimension;
+          targetW = Math.round((naturalW * maxDimension) / naturalH);
+        }
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = targetW;
+      canvas.height = targetH;
+      const ctx = canvas.getContext('2d');
+
+      if (!ctx) {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.readAsDataURL(file);
+        return;
+      }
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, targetW, targetH);
+
+      // Save as pristine high-quality JPEG
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.96);
+      resolve(dataUrl);
+    };
+
+    img.onerror = () => {
+      URL.revokeObjectURL(objectUrl);
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.readAsDataURL(file);
+    };
+
+    img.src = objectUrl;
+  });
+};
+
 export const App: React.FC = () => {
   const posterRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -117,19 +181,26 @@ export const App: React.FC = () => {
     showToast(`Switched to ${role} realm! ✨`);
   };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      if (file.size > 15 * 1024 * 1024) {
-        showToast('Please select an image smaller than 15MB');
+      if (file.size > 25 * 1024 * 1024) {
+        showToast('Please select an image smaller than 25MB');
         return;
       }
-      const reader = new FileReader();
-      reader.onload = () => {
-        setFormData((prev) => ({ ...prev, photoUrl: reader.result as string }));
-        showToast('Photo uploaded & applied to poster! 📁✨');
-      };
-      reader.readAsDataURL(file);
+      showToast('Optimizing photo clarity... ✨');
+      try {
+        const optimizedPhoto = await processGalleryImage(file);
+        setFormData((prev) => ({ ...prev, photoUrl: optimizedPhoto }));
+        showToast('Photo framed with ultra-sharp clarity! 📁✨');
+      } catch {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setFormData((prev) => ({ ...prev, photoUrl: reader.result as string }));
+          showToast('Photo uploaded! 📁');
+        };
+        reader.readAsDataURL(file);
+      }
     }
     // Clear input value so selecting the same file again triggers onChange
     e.target.value = '';
