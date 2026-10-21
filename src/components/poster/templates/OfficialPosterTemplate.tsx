@@ -264,46 +264,6 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
           </div>
         )}
       </div>
-
-      {/* 4. Bottom-Right Official Date Badge (Cleanly anchored in corner, never overlaps text) */}
-      <div
-        className="absolute z-10 flex flex-col items-end pointer-events-none"
-        style={{
-          right: '6.5%',
-          bottom: '2.5%',
-          transform: 'translateZ(0)',
-        }}
-      >
-        <span
-          className="font-extrabold uppercase"
-          style={{
-            fontFamily: "'Plus Jakarta Sans', 'Space Grotesk', sans-serif",
-            fontSize: 'clamp(0.72rem, 2.15cqi, 1.15rem)',
-            lineHeight: '1.05',
-            letterSpacing: '0.02em',
-            color: '#120836',
-          }}
-        >
-          28<sup style={{ fontSize: '0.65em', top: '-0.35em' }}>th</sup> &amp; 29<sup style={{ fontSize: '0.65em', top: '-0.35em' }}>th</sup>
-        </span>
-        <div
-          className="mt-1 px-2.5 py-0.5 rounded-[3px] shadow-sm flex items-center justify-center"
-          style={{ backgroundColor: '#190f40' }}
-        >
-          <span
-            className="font-black uppercase tracking-widest"
-            style={{
-              fontFamily: "'Plus Jakarta Sans', 'Space Grotesk', sans-serif",
-              fontSize: 'clamp(0.58rem, 1.72cqi, 0.95rem)',
-              lineHeight: '1.15',
-              letterSpacing: '0.14em',
-              color: '#ffffff',
-            }}
-          >
-            OCTOBER 2026
-          </span>
-        </div>
-      </div>
     </div>
   );
 };
