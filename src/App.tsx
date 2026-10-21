@@ -20,8 +20,6 @@ import {
   RefreshCw,
   Calendar,
   MessageCircle,
-  Sun,
-  Moon,
   CheckCircle2,
   Share2,
   Copy,
@@ -123,9 +121,6 @@ export const App: React.FC = () => {
   const posterRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const nativeCameraInputRef = useRef<HTMLInputElement>(null);
-
-  // Theme state: 'webflow' (light playful) | 'midnight' (cyber dark)
-  const [theme, setTheme] = useState<'webflow' | 'midnight'>('webflow');
 
   // Active Role: Speaker | Startup | Investor | Host
   const [selectedRole, setSelectedRole] = useState<AttendeeRole>('Speaker');
@@ -342,7 +337,8 @@ export const App: React.FC = () => {
     }
   };
 
-  const isDark = theme === 'midnight';
+  // Permanent daytime theme (light mode)
+  const isDark = false;
 
   return (
     <div
@@ -403,42 +399,6 @@ export const App: React.FC = () => {
                 className={`w-3.5 h-3.5 ${isDark ? 'text-[#00f5ff]' : 'text-[#2c2531]'}`}
               />
               <span>Oct 28–29, 2026</span>
-            </div>
-
-            {/* THEME TOGGLE SWITCHER */}
-            <div
-              className={`flex items-center p-1 rounded-full border ${
-                isDark
-                  ? 'bg-[#151636] border-white/15 text-white'
-                  : 'bg-white border-2 border-[#2c2531] shadow-[0_2px_0_#2c2531]'
-              }`}
-            >
-              <button
-                type="button"
-                onClick={() => setTheme('webflow')}
-                className={`px-3 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 transition-all ${
-                  !isDark
-                    ? 'bg-[#2c2531] text-white shadow-sm'
-                    : 'text-silver-400 hover:text-white'
-                }`}
-                title="Switch to Webflow Playful Light theme"
-              >
-                <Sun className="w-3.5 h-3.5 text-[#fde047]" />
-                <span className="hidden sm:inline">Playful</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setTheme('midnight')}
-                className={`px-3 py-1.5 rounded-full text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 transition-all ${
-                  isDark
-                    ? 'bg-gradient-to-r from-[#00f5ff] to-[#8b5cf6] text-black shadow-sm font-black'
-                    : 'text-[#716979] hover:text-[#2c2531]'
-                }`}
-                title="Switch to Midnight Cyber Dark theme"
-              >
-                <Moon className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Midnight</span>
-              </button>
             </div>
 
             {/* Primary Download Button */}
