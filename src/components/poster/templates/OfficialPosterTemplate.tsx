@@ -90,22 +90,22 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
     color: '#533d7d',
   };
 
-  // Role-based or custom Vision Paragraph highlighting Saviskar as CGC University's greatest event
+  // Role-based or custom Vision Tagline (sleek, punchy, and spacious)
   const getParagraph = () => {
-    if (data.tagline && data.tagline.trim()) {
+    if (data.tagline !== undefined) {
       return data.tagline.trim();
     }
     switch (data.role) {
       case 'Speaker':
-        return "CGC University's grandest annual mega-event, SAVISKAR 2026 brings world-class innovators and keynote voices to inspire 35,000+ ambitious creators.";
+        return "Inspiring 35,000+ creators & innovators at SAVISKAR 2026.";
       case 'Startup':
-        return "The greatest innovation spectacle at CGC University, SAVISKAR 2026 empowers student founders to demo breakthrough inventions and pitch to leading investors.";
+        return "Demoing breakthrough tech & inventions at SAVISKAR 2026.";
       case 'Investor':
-        return "CGC University's flagship innovation platform, SAVISKAR 2026 unites top venture leaders and angel mentors with the sharpest student builders in India.";
+        return "Empowering India's next generation of student builders.";
       case 'Host':
-        return "CGC University's biggest and grandest annual celebration, SAVISKAR 2026 electrifies the mainstage with star nights, cutting-edge battles, and 35,000+ voices.";
+        return "Electrifying the mainstage at SAVISKAR 2026 • CGC University.";
       default:
-        return "CGC University's grandest techno-cultural spectacle, SAVISKAR 2026 unites 35,000+ creators, builders, and dreamers under the Mohali stars to shape the future.";
+        return "Uniting 35,000+ innovators under the Mohali stars at SAVISKAR 2026.";
     }
   };
 
@@ -167,146 +167,102 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
         </div>
       )}
 
-      {/* 3. Attendee Text Details on the right (Clean heading hierarchy + node pin + paragraph) */}
+      {/* 3. Attendee Text Details on the right (Spacious, airy, executive hierarchy) */}
       <div
         className="absolute z-10 flex flex-col justify-start pointer-events-none"
         style={{
           left: '50.5%',
-          top: '42.5%',
+          top: '43.5%',
           width: '45.0%',
-          maxHeight: '43%',
+          maxHeight: '41%',
           overflow: 'hidden',
         }}
       >
-        {/* Timeline Node Icon & Attendee Details Card */}
-        <div className="flex items-start gap-2 sm:gap-2.5">
-          {/* Timeline node icon and vertical connector line */}
-          <div className="flex flex-col items-center shrink-0 pt-0.5" style={{ height: '100%' }}>
-            {/* Purple circle with user icon (solid background for rock-solid contrast) */}
-            <div
-              className="rounded-full flex items-center justify-center shadow-sm"
-              style={{
-                width: 'clamp(18px, 3.8cqi, 26px)',
-                height: 'clamp(18px, 3.8cqi, 26px)',
-                backgroundColor: '#190f40',
-              }}
-            >
-              <svg
-                viewBox="0 0 24 24"
-                style={{
-                  width: 'clamp(10px, 2.1cqi, 15px)',
-                  height: 'clamp(10px, 2.1cqi, 15px)',
-                  fill: '#ffffff',
-                  color: '#ffffff',
-                }}
-              >
-                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-              </svg>
-            </div>
-            {/* Connecting vertical line with bottom dot marker */}
-            <div
-              className="rounded-full my-1 relative"
-              style={{
-                width: '2px',
-                backgroundColor: 'rgba(60, 40, 107, 0.45)',
-                minHeight: 'clamp(18px, 4.2cqi, 28px)',
-                flex: 1,
-              }}
-            >
-              <div
-                className="w-1.5 h-1.5 rounded-full absolute bottom-0 left-1/2 -translate-x-1/2"
-                style={{ backgroundColor: '#3c286b' }}
-              />
-            </div>
-          </div>
-
-          {/* Attendee Details Text Block */}
-          <div className="flex-1 min-w-0">
-            {/* Full Name Heading */}
-            <h1
-              className="font-black tracking-tight uppercase transition-all duration-150"
-              style={{
-                ...nameInlineStyle,
-                color: '#120836',
-                wordBreak: 'break-word',
-                overflowWrap: 'break-word',
-              }}
-            >
-              {data.name || 'FULL NAME'}
-            </h1>
-
-            {/* Designation */}
-            <p
-              className="font-bold uppercase tracking-wider leading-tight line-clamp-2 transition-all duration-150"
-              style={{
-                ...desigStyle,
-                marginTop: '3px',
-                color: '#3c286b',
-                wordBreak: 'break-word',
-                overflowWrap: 'break-word',
-              }}
-            >
-              {data.designation || 'DESIGNATION'}
-            </p>
-
-            {/* Organization / Department */}
-            <p
-              className="font-semibold uppercase tracking-wider leading-tight line-clamp-2 transition-all duration-150"
-              style={{
-                ...orgStyle,
-                marginTop: '3px',
-                color: '#533d7d',
-                wordBreak: 'break-word',
-                overflowWrap: 'break-word',
-              }}
-            >
-              {data.organization
-                ? data.department && !data.organization.includes('/')
-                  ? `${data.organization} / ${data.department}`
-                  : data.organization
-                : 'CGC UNIVERSITY / MOHALI'}
-            </p>
-          </div>
-        </div>
-
-        {/* Vision Statement Paragraph (guaranteed zero truncation) */}
-        <div
-          className="mt-2 sm:mt-2.5 pt-2 sm:pt-2.5"
-          style={{ borderTop: '1.5px solid rgba(25, 15, 64, 0.18)' }}
+        {/* Full Name Heading - full width for crisp readability */}
+        <h1
+          className="font-black tracking-tight uppercase transition-all duration-150"
+          style={{
+            ...nameInlineStyle,
+            color: '#120836',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+          }}
         >
-          <p
-            className="font-medium leading-relaxed transition-all duration-150"
-            style={{
-              fontFamily: "'Plus Jakarta Sans', sans-serif",
-              fontSize:
-                paragraphText.length > 135
-                  ? 'clamp(0.56rem, 1.62cqi, 0.78rem)'
-                  : 'clamp(0.62rem, 1.82cqi, 0.88rem)',
-              lineHeight: '1.38',
-              letterSpacing: '-0.005em',
-              color: '#261b47',
-              margin: 0,
-            }}
+          {data.name || 'FULL NAME'}
+        </h1>
+
+        {/* Designation */}
+        <p
+          className="font-bold uppercase tracking-wider leading-tight line-clamp-2 transition-all duration-150"
+          style={{
+            ...desigStyle,
+            marginTop: '5px',
+            color: '#3c286b',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+          }}
+        >
+          {data.designation || 'DESIGNATION'}
+        </p>
+
+        {/* Organization / Department */}
+        <p
+          className="font-semibold uppercase tracking-wider leading-tight line-clamp-2 transition-all duration-150"
+          style={{
+            ...orgStyle,
+            marginTop: '4px',
+            color: '#533d7d',
+            wordBreak: 'break-word',
+            overflowWrap: 'break-word',
+          }}
+        >
+          {data.organization
+            ? data.department && !data.organization.includes('/')
+              ? `${data.organization} / ${data.department}`
+              : data.organization
+            : 'CGC UNIVERSITY / MOHALI'}
+        </p>
+
+        {/* Optional Punchy Tagline / Vision Quote (generous breathing room, completely optional) */}
+        {paragraphText && (
+          <div
+            className="mt-3 sm:mt-3.5 pt-2 sm:pt-2.5"
+            style={{ borderTop: '1.5px solid rgba(25, 15, 64, 0.14)' }}
           >
-            {paragraphText.split(/(SAVISKAR 2026|SAVISKAR|CGC University)/g).map((part, index) => {
-              if (part === 'SAVISKAR 2026' || part === 'SAVISKAR') {
-                return (
-                  <strong key={index} className="font-extrabold" style={{ color: '#120836' }}>
-                    {part}
-                  </strong>
-                );
-              }
-              if (part === 'CGC University') {
-                return (
-                  <strong key={index} className="font-bold" style={{ color: '#120836' }}>
-                    {part}
-                  </strong>
-                );
-              }
-              return <React.Fragment key={index}>{part}</React.Fragment>;
-            })}
-          </p>
-        </div>
+            <p
+              className="font-medium leading-relaxed transition-all duration-150"
+              style={{
+                fontFamily: "'Plus Jakarta Sans', sans-serif",
+                fontSize:
+                  paragraphText.length > 90
+                    ? 'clamp(0.58rem, 1.65cqi, 0.78rem)'
+                    : 'clamp(0.64rem, 1.85cqi, 0.88rem)',
+                lineHeight: '1.38',
+                letterSpacing: '-0.005em',
+                color: '#261b47',
+                margin: 0,
+              }}
+            >
+              {paragraphText.split(/(SAVISKAR 2026|SAVISKAR|CGC University)/g).map((part, index) => {
+                if (part === 'SAVISKAR 2026' || part === 'SAVISKAR') {
+                  return (
+                    <strong key={index} className="font-extrabold" style={{ color: '#120836' }}>
+                      {part}
+                    </strong>
+                  );
+                }
+                if (part === 'CGC University') {
+                  return (
+                    <strong key={index} className="font-bold" style={{ color: '#120836' }}>
+                      {part}
+                    </strong>
+                  );
+                }
+                return <React.Fragment key={index}>{part}</React.Fragment>;
+              })}
+            </p>
+          </div>
+        )}
       </div>
 
       {/* 4. Bottom-Right Official Date Badge (Cleanly anchored in corner, never overlaps text) */}
