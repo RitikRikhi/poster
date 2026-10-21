@@ -127,9 +127,9 @@ export const App: React.FC = () => {
 
   // Exact requested fields: Full Name, Designation, Organization / Department, Photo
   const [formData, setFormData] = useState<PosterData>({
-    name: 'Aarav Sharma',
-    designation: 'Keynote Speaker',
-    organization: 'CGC University / CSE Dept',
+    name: '',
+    designation: '',
+    organization: '',
     photoUrl: null,
     photoScale: 1,
     photoOffsetY: 0,
@@ -151,31 +151,10 @@ export const App: React.FC = () => {
 
   const handleRoleSelect = (role: AttendeeRole) => {
     setSelectedRole(role);
-    setFormData((prev) => {
-      let defaultDesig = prev.designation;
-      let defaultOrg = prev.organization;
-
-      if (role === 'Speaker') {
-        defaultDesig = 'Keynote Speaker';
-        defaultOrg = 'CGC University / Tech Visionary';
-      } else if (role === 'Startup') {
-        defaultDesig = 'Founder & CEO';
-        defaultOrg = 'Acme Labs / Innovation';
-      } else if (role === 'Investor') {
-        defaultDesig = 'Venture Partner';
-        defaultOrg = 'Angel Capital / Ventures';
-      } else if (role === 'Host') {
-        defaultDesig = 'Mainstage Emcee';
-        defaultOrg = 'CGC University / Media & PR';
-      }
-
-      return {
-        ...prev,
-        role,
-        designation: defaultDesig,
-        organization: defaultOrg,
-      };
-    });
+    setFormData((prev) => ({
+      ...prev,
+      role,
+    }));
     showToast(`Switched to ${role} realm! ✨`);
   };
 
@@ -703,8 +682,8 @@ export const App: React.FC = () => {
                     </span>
                   </div>
                   <textarea
-                    rows={2}
-                    placeholder="e.g. Electrifying the mainstage at SAVISKAR 2026 • CGC University..."
+                    rows={3}
+                    placeholder="e.g. Electrifying the mainstage and celebrating creative brilliance at SAVISKAR 2026 • CGC University..."
                     value={formData.tagline || ''}
                     onChange={(e) =>
                       setFormData((prev) => ({ ...prev, tagline: e.target.value }))
@@ -720,19 +699,19 @@ export const App: React.FC = () => {
                     {[
                       {
                         label: '⚡ Mainstage Energy',
-                        text: 'Electrifying the mainstage at SAVISKAR 2026 • CGC University.',
+                        text: 'Electrifying the mainstage and celebrating creative brilliance at SAVISKAR 2026 • CGC University.',
                       },
                       {
                         label: '🌟 35,000+ Innovators',
-                        text: 'Uniting 35,000+ creators & visionaries under the Mohali stars.',
+                        text: 'Uniting 35,000+ creators, builders, and innovators under the Mohali stars at SAVISKAR 2026.',
                       },
                       {
                         label: '🚀 Breakthrough Tech',
-                        text: 'Demoing breakthrough inventions & building for the future.',
+                        text: 'Demoing breakthrough inventions and scaling disruptive tech innovations at SAVISKAR 2026.',
                       },
                       {
                         label: '🎙️ Keynote Voice',
-                        text: 'Inspiring tomorrow’s brightest minds at SAVISKAR 2026.',
+                        text: 'Inspiring 35,000+ creators & innovators to dream big and build the future at SAVISKAR 2026.',
                       },
                     ].map((preset, idx) => (
                       <button

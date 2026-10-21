@@ -96,20 +96,23 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
 
   // Role-based or custom Vision Tagline (sleek, punchy, and spacious)
   const getParagraph = () => {
-    if (data.tagline !== undefined) {
+    if (data.tagline !== undefined && data.tagline.trim().length > 0) {
       return data.tagline.trim();
+    }
+    if (data.tagline === ' ') {
+      return '';
     }
     switch (data.role) {
       case 'Speaker':
-        return "Inspiring 35,000+ creators & innovators at SAVISKAR 2026.";
+        return "Inspiring 35,000+ creators & innovators to dream big and build the future at SAVISKAR 2026.";
       case 'Startup':
-        return "Demoing breakthrough tech & inventions at SAVISKAR 2026.";
+        return "Demoing breakthrough inventions and scaling disruptive tech innovations at SAVISKAR 2026.";
       case 'Investor':
-        return "Empowering India's next generation of student builders.";
+        return "Backing bold ideas and empowering India's next generation of student builders at SAVISKAR 2026.";
       case 'Host':
-        return "Electrifying the mainstage at SAVISKAR 2026 • CGC University.";
+        return "Electrifying the mainstage and celebrating creative brilliance at SAVISKAR 2026 • CGC University.";
       default:
-        return "Uniting 35,000+ innovators under the Mohali stars at SAVISKAR 2026.";
+        return "Uniting 35,000+ visionaries, creators & innovators under the Mohali stars at SAVISKAR 2026.";
     }
   };
 
@@ -176,9 +179,9 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
         className="absolute z-10 flex flex-col justify-start pointer-events-none"
         style={{
           left: '50.5%',
-          top: '44.5%',
-          width: '45.0%',
-          maxHeight: '41%',
+          top: '47.0%',
+          width: '46.5%',
+          maxHeight: '43%',
           overflow: 'hidden',
         }}
       >
@@ -200,7 +203,7 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
           className="font-bold uppercase tracking-wider leading-tight line-clamp-2 transition-all duration-150"
           style={{
             ...desigStyle,
-            marginTop: '8px',
+            marginTop: '7px',
             color: '#3c286b',
             wordBreak: 'break-word',
             overflowWrap: 'break-word',
@@ -238,8 +241,10 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
               style={{
                 fontFamily: "'Plus Jakarta Sans', sans-serif",
                 fontSize:
-                  paragraphText.length > 90
-                    ? 'clamp(0.58rem, 1.65cqi, 0.78rem)'
+                  paragraphText.length > 105
+                    ? 'clamp(0.55rem, 1.55cqi, 0.76rem)'
+                    : paragraphText.length > 75
+                    ? 'clamp(0.60rem, 1.72cqi, 0.83rem)'
                     : 'clamp(0.64rem, 1.85cqi, 0.88rem)',
                 lineHeight: '1.38',
                 letterSpacing: '-0.005em',
