@@ -88,22 +88,22 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
     letterSpacing: '0.05em',
   };
 
-  // Role-based or custom Vision Paragraph ("grpah" from reference)
+  // Role-based or custom Vision Paragraph highlighting Saviskar as CGC University's greatest event
   const getParagraph = () => {
     if (data.tagline && data.tagline.trim()) {
       return data.tagline.trim();
     }
     switch (data.role) {
       case 'Speaker':
-        return 'From ideas to intelligence, SAVISKAR explores how breakthrough minds shape a smarter, more connected and future ready generation.';
+        return "CGC University's grandest annual mega-event, SAVISKAR 2026 brings world-class innovators and keynote voices to inspire 35,000+ ambitious creators.";
       case 'Startup':
-        return 'From innovation to execution, SAVISKAR empowers student founders to build scalable inventions for a future ready Bharat.';
+        return "The greatest innovation spectacle at CGC University, SAVISKAR 2026 empowers student founders to demo breakthrough inventions and pitch to leading investors.";
       case 'Investor':
-        return 'From capital to catalysts, SAVISKAR backs visionary builders shaping the next era of breakthrough technologies.';
+        return "CGC University's flagship innovation platform, SAVISKAR 2026 unites top venture leaders and angel mentors with the sharpest student builders in India.";
       case 'Host':
-        return 'From ideas to intelligence, SAVISKAR brings 35,000+ voices together under the Mohali stars for an electric celebration.';
+        return "CGC University's biggest and grandest annual celebration, SAVISKAR 2026 electrifies the mainstage with star nights, cutting-edge battles, and 35,000+ voices.";
       default:
-        return 'From ideas to intelligence, SAVISKAR explores how breakthrough ideas shape a smarter, more connected and future ready generation.';
+        return "CGC University's grandest techno-cultural spectacle, SAVISKAR 2026 unites 35,000+ creators, builders, and dreamers under the Mohali stars to shape the future.";
     }
   };
 
@@ -255,14 +255,23 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
               letterSpacing: '-0.005em',
             }}
           >
-            {paragraphText.split('SAVISKAR').map((part, index, arr) => (
-              <React.Fragment key={index}>
-                {part}
-                {index < arr.length - 1 && (
-                  <strong className="font-extrabold text-[#190f40]">SAVISKAR</strong>
-                )}
-              </React.Fragment>
-            ))}
+            {paragraphText.split(/(SAVISKAR 2026|SAVISKAR|CGC University)/g).map((part, index) => {
+              if (part === 'SAVISKAR 2026' || part === 'SAVISKAR') {
+                return (
+                  <strong key={index} className="font-extrabold text-[#190f40]">
+                    {part}
+                  </strong>
+                );
+              }
+              if (part === 'CGC University') {
+                return (
+                  <strong key={index} className="font-bold text-[#190f40]">
+                    {part}
+                  </strong>
+                );
+              }
+              return <React.Fragment key={index}>{part}</React.Fragment>;
+            })}
           </p>
         </div>
       </div>

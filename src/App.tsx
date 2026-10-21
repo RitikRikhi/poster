@@ -741,7 +741,7 @@ export const App: React.FC = () => {
                   </div>
                   <textarea
                     rows={2}
-                    placeholder="e.g. From ideas to intelligence, SAVISKAR explores how breakthrough minds shape a smarter future..."
+                    placeholder="e.g. CGC University's grandest annual mega-event, SAVISKAR 2026 unites 35,000+ creators..."
                     value={formData.tagline || ''}
                     onChange={(e) =>
                       setFormData((prev) => ({ ...prev, tagline: e.target.value }))
@@ -752,6 +752,40 @@ export const App: React.FC = () => {
                         : 'bg-[#f8f7fa] text-[#2c2531] placeholder-[#9c94a4] border-2 border-[#2c2531]/20 focus:border-[#2c2531] focus:bg-white focus:shadow-[0_3px_0_#2c2531]'
                     }`}
                   />
+                  {/* Quick Preset Statements */}
+                  <div className="flex flex-wrap gap-1.5 mt-1">
+                    {[
+                      {
+                        label: "🏆 CGC's Grandest Event",
+                        text: "CGC University's grandest techno-cultural spectacle, SAVISKAR 2026 unites 35,000+ creators, builders, and dreamers under the Mohali stars to shape the future.",
+                      },
+                      {
+                        label: '⚡ Breakthrough Innovation',
+                        text: 'The greatest innovation spectacle at CGC University, SAVISKAR 2026 empowers student founders to demo breakthrough inventions and pitch to leading investors.',
+                      },
+                      {
+                        label: '🎙️ Keynote & Vision',
+                        text: "CGC University's grandest annual mega-event, SAVISKAR 2026 brings world-class innovators and keynote voices to inspire 35,000+ ambitious creators.",
+                      },
+                      {
+                        label: '🔥 35,000+ Star Nights',
+                        text: "CGC University's biggest and grandest annual celebration, SAVISKAR 2026 electrifies the mainstage with star nights, cutting-edge battles, and 35,000+ voices.",
+                      },
+                    ].map((preset, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setFormData((prev) => ({ ...prev, tagline: preset.text }))}
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-lg transition-all ${
+                          isDark
+                            ? 'bg-white/5 hover:bg-white/15 text-silver-300 border border-white/10'
+                            : 'bg-[#edeaf6] hover:bg-[#dfdbef] text-[#2c2531] border border-[#2c2531]/15'
+                        }`}
+                      >
+                        {preset.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
 
                 {/* Divider */}
