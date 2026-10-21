@@ -25,13 +25,12 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
   const nameWords = rawName.split(/\s+/);
   const longestNameWord = Math.max(...nameWords.map((w) => w.length), 0);
 
-  // Dynamic font sizing intelligence for Name:
-  // Dynamically adapts based on total length and longest word to prevent overflow
+  // Dynamic font sizing intelligence for Name Heading
   let nameSizeClass = 'text-xl sm:text-2xl md:text-3xl lg:text-4xl';
   let nameInlineStyle: React.CSSProperties = {
     fontFamily: "'Plus Jakarta Sans', sans-serif",
-    fontSize: 'clamp(0.95rem, 4.4cqi, 2.3rem)',
-    lineHeight: '1.05',
+    fontSize: 'clamp(0.95rem, 3.8cqi, 2.1rem)',
+    lineHeight: '1.08',
     letterSpacing: '-0.025em',
   };
 
@@ -39,7 +38,7 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
     nameSizeClass = 'text-xs sm:text-sm md:text-base lg:text-lg';
     nameInlineStyle = {
       fontFamily: "'Plus Jakarta Sans', sans-serif",
-      fontSize: 'clamp(0.75rem, 2.3cqi, 1.15rem)',
+      fontSize: 'clamp(0.72rem, 2.2cqi, 1.1rem)',
       lineHeight: '1.16',
       letterSpacing: '-0.01em',
     };
@@ -47,7 +46,7 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
     nameSizeClass = 'text-sm sm:text-base md:text-lg lg:text-xl';
     nameInlineStyle = {
       fontFamily: "'Plus Jakarta Sans', sans-serif",
-      fontSize: 'clamp(0.9rem, 2.9cqi, 1.45rem)',
+      fontSize: 'clamp(0.85rem, 2.7cqi, 1.35rem)',
       lineHeight: '1.12',
       letterSpacing: '-0.015em',
     };
@@ -55,8 +54,8 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
     nameSizeClass = 'text-base sm:text-lg md:text-xl lg:text-2xl';
     nameInlineStyle = {
       fontFamily: "'Plus Jakarta Sans', sans-serif",
-      fontSize: 'clamp(1.05rem, 3.6cqi, 1.85rem)',
-      lineHeight: '1.08',
+      fontSize: 'clamp(0.95rem, 3.2cqi, 1.65rem)',
+      lineHeight: '1.1',
       letterSpacing: '-0.02em',
     };
   }
@@ -66,10 +65,13 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
   const desigStyle: React.CSSProperties = {
     fontFamily: "'Space Grotesk', sans-serif",
     fontSize:
-      desigLen > 24
-        ? 'clamp(0.65rem, 1.9cqi, 0.95rem)'
-        : 'clamp(0.76rem, 2.3cqi, 1.12rem)',
-    lineHeight: '1.2',
+      desigLen > 28
+        ? 'clamp(0.6rem, 1.7cqi, 0.85rem)'
+        : desigLen > 20
+        ? 'clamp(0.68rem, 1.95cqi, 0.98rem)'
+        : 'clamp(0.74rem, 2.15cqi, 1.08rem)',
+    lineHeight: '1.22',
+    letterSpacing: '0.04em',
   };
 
   // Dynamic font sizing for Organization
@@ -78,12 +80,34 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
     fontFamily: "'Space Grotesk', sans-serif",
     fontSize:
       orgLen > 30
-        ? 'clamp(0.85rem, 2.6cqi, 1.25rem)'
+        ? 'clamp(0.65rem, 1.85cqi, 0.92rem)'
         : orgLen > 20
-        ? 'clamp(0.98rem, 3.0cqi, 1.45rem)'
-        : 'clamp(1.1rem, 3.4cqi, 1.65rem)',
-    lineHeight: '1.25',
+        ? 'clamp(0.72rem, 2.05cqi, 1.05rem)'
+        : 'clamp(0.78rem, 2.25cqi, 1.15rem)',
+    lineHeight: '1.24',
+    letterSpacing: '0.05em',
   };
+
+  // Role-based or custom Vision Paragraph ("grpah" from reference)
+  const getParagraph = () => {
+    if (data.tagline && data.tagline.trim()) {
+      return data.tagline.trim();
+    }
+    switch (data.role) {
+      case 'Speaker':
+        return 'From ideas to intelligence, SAVISKAR explores how breakthrough minds shape a smarter, more connected and future ready generation.';
+      case 'Startup':
+        return 'From innovation to execution, SAVISKAR empowers student founders to build scalable inventions for a future ready Bharat.';
+      case 'Investor':
+        return 'From capital to catalysts, SAVISKAR backs visionary builders shaping the next era of breakthrough technologies.';
+      case 'Host':
+        return 'From ideas to intelligence, SAVISKAR brings 35,000+ voices together under the Mohali stars for an electric celebration.';
+      default:
+        return 'From ideas to intelligence, SAVISKAR explores how breakthrough ideas shape a smarter, more connected and future ready generation.';
+    }
+  };
+
+  const paragraphText = getParagraph();
 
   return (
     <div className="relative w-full h-full overflow-hidden select-none bg-[#03040c] font-sans">
@@ -132,52 +156,146 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
         </div>
       )}
 
-      {/* 3. Attendee Text Details on the right (Minimal, dynamic sizing, beautifully spaced) */}
+      {/* 3. Attendee Text Details on the right (Clean heading hierarchy + node pin + paragraph) */}
       <div
         className="absolute z-10 flex flex-col justify-start pointer-events-none"
         style={{
-          left: '52.5%',
+          left: '52.0%',
           top: '46.0%',
-          width: '42.5%',
-          maxHeight: '38%',
+          width: '43.0%',
+          maxHeight: '44%',
           overflow: 'hidden',
         }}
       >
-        {/* Full Name (with dynamic font size scaling) */}
-        <h1
-          className={`font-black tracking-tight uppercase text-[#190f40] transition-all duration-150 ${nameSizeClass}`}
-          style={{
-            ...nameInlineStyle,
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
-          }}
-        >
-          {data.name || 'FULL NAME'}
-        </h1>
+        {/* Timeline Node Icon & Attendee Details Card */}
+        <div className="flex items-start gap-2 sm:gap-2.5">
+          {/* Timeline node icon and vertical connector line */}
+          <div className="flex flex-col items-center shrink-0 pt-0.5" style={{ height: '100%' }}>
+            {/* Purple circle with user icon (from reference image) */}
+            <div
+              className="rounded-full bg-[#190f40] flex items-center justify-center shadow-sm"
+              style={{
+                width: 'clamp(18px, 3.8cqi, 26px)',
+                height: 'clamp(18px, 3.8cqi, 26px)',
+              }}
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="text-white"
+                style={{
+                  width: 'clamp(10px, 2.1cqi, 15px)',
+                  height: 'clamp(10px, 2.1cqi, 15px)',
+                }}
+              >
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+              </svg>
+            </div>
+            {/* Connecting vertical line with bottom dot marker */}
+            <div
+              className="w-[2px] bg-[#3c286b]/40 rounded-full my-1 relative"
+              style={{ minHeight: 'clamp(20px, 4.8cqi, 32px)', flex: 1 }}
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-[#3c286b] absolute bottom-0 left-1/2 -translate-x-1/2" />
+            </div>
+          </div>
 
-        {/* Designation */}
-        <p
-          className="mt-1.5 sm:mt-2 font-bold uppercase tracking-wider text-[#3c286b] leading-snug line-clamp-2 transition-all duration-150"
-          style={{
-            ...desigStyle,
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
-          }}
-        >
-          {data.designation || 'DESIGNATION'}
-        </p>
+          {/* Attendee Details Text Block */}
+          <div className="flex-1 min-w-0">
+            {/* Full Name Heading */}
+            <h1
+              className={`font-black tracking-tight uppercase text-[#190f40] transition-all duration-150 ${nameSizeClass}`}
+              style={{
+                ...nameInlineStyle,
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
+              }}
+            >
+              {data.name || 'FULL NAME'}
+            </h1>
 
-        {/* Organization */}
-        <p
-          className="mt-1.5 font-semibold text-[#483375] leading-snug line-clamp-3 transition-all duration-150"
+            {/* Designation */}
+            <p
+              className="mt-1 font-bold uppercase tracking-wider text-[#3c286b] leading-tight line-clamp-2 transition-all duration-150"
+              style={{
+                ...desigStyle,
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
+              }}
+            >
+              {data.designation || 'DESIGNATION'}
+            </p>
+
+            {/* Organization / University */}
+            <p
+              className="mt-1 font-semibold uppercase tracking-wider text-[#584488] leading-tight line-clamp-2 transition-all duration-150"
+              style={{
+                ...orgStyle,
+                wordBreak: 'break-word',
+                overflowWrap: 'break-word',
+              }}
+            >
+              {data.organization || 'CGC UNIVERSITY, MOHALI'}
+            </p>
+          </div>
+        </div>
+
+        {/* Vision Statement Paragraph ("grpah" from reference image) */}
+        <div className="mt-2.5 sm:mt-3.5 pt-2 sm:pt-2.5 border-t border-[#190f40]/15">
+          <p
+            className="font-normal text-[#2b2149] leading-relaxed transition-all duration-150"
+            style={{
+              fontFamily: "'Plus Jakarta Sans', sans-serif",
+              fontSize: 'clamp(0.64rem, 1.88cqi, 0.92rem)',
+              lineHeight: '1.4',
+              letterSpacing: '-0.005em',
+            }}
+          >
+            {paragraphText.split('SAVISKAR').map((part, index, arr) => (
+              <React.Fragment key={index}>
+                {part}
+                {index < arr.length - 1 && (
+                  <strong className="font-extrabold text-[#190f40]">SAVISKAR</strong>
+                )}
+              </React.Fragment>
+            ))}
+          </p>
+        </div>
+      </div>
+
+      {/* 4. Bottom-Right Official Date Badge (Exact reference design: 28th & 29th + [OCTOBER 2026] in purple box) */}
+      <div
+        className="absolute z-10 flex flex-col items-end pointer-events-none"
+        style={{
+          right: '8.8%',
+          bottom: '2.0%',
+          transform: 'translateZ(0)',
+        }}
+      >
+        <span
+          className="font-extrabold uppercase text-[#190f40]"
           style={{
-            ...orgStyle,
-            wordBreak: 'break-word',
-            overflowWrap: 'break-word',
+            fontFamily: "'Plus Jakarta Sans', 'Space Grotesk', sans-serif",
+            fontSize: 'clamp(0.78rem, 2.3cqi, 1.25rem)',
+            lineHeight: '1.05',
+            letterSpacing: '0.02em',
           }}
         >
-          {data.organization || 'ORGANIZATION'}
-        </p>
+          28<sup style={{ fontSize: '0.65em', top: '-0.35em' }}>th</sup> &amp; 29<sup style={{ fontSize: '0.65em', top: '-0.35em' }}>th</sup>
+        </span>
+        <div className="mt-1 px-2.5 py-0.5 rounded-[2px] bg-[#190f40] shadow-sm flex items-center justify-center">
+          <span
+            className="font-black uppercase tracking-widest text-white"
+            style={{
+              fontFamily: "'Plus Jakarta Sans', 'Space Grotesk', sans-serif",
+              fontSize: 'clamp(0.62rem, 1.85cqi, 1.02rem)',
+              lineHeight: '1.15',
+              letterSpacing: '0.14em',
+            }}
+          >
+            OCTOBER 2026
+          </span>
+        </div>
       </div>
     </div>
   );

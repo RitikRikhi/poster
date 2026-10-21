@@ -717,6 +717,43 @@ export const App: React.FC = () => {
                   />
                 </div>
 
+                {/* Vision Statement / Paragraph */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                  <div className="flex items-center justify-between">
+                    <label
+                      style={{
+                        fontSize: '11px',
+                        fontWeight: 700,
+                        letterSpacing: '1px',
+                        textTransform: 'uppercase',
+                        color: isDark ? 'rgb(208, 225, 235)' : '#2c2531',
+                      }}
+                    >
+                      Vision Statement / Paragraph
+                    </label>
+                    <span
+                      className={`text-[10px] font-medium ${
+                        isDark ? 'text-silver-400' : 'text-[#716979]'
+                      }`}
+                    >
+                      Auto-filled if empty
+                    </span>
+                  </div>
+                  <textarea
+                    rows={2}
+                    placeholder="e.g. From ideas to intelligence, SAVISKAR explores how breakthrough minds shape a smarter future..."
+                    value={formData.tagline || ''}
+                    onChange={(e) =>
+                      setFormData((prev) => ({ ...prev, tagline: e.target.value }))
+                    }
+                    className={`w-full px-4 py-2.5 text-base sm:text-sm font-semibold rounded-xl outline-none resize-none transition-all ${
+                      isDark
+                        ? 'bg-white/10 text-white placeholder-silver-500 border border-white/20 focus:border-[#00f5ff] focus:ring-1 focus:ring-[#00f5ff]'
+                        : 'bg-[#f8f7fa] text-[#2c2531] placeholder-[#9c94a4] border-2 border-[#2c2531]/20 focus:border-[#2c2531] focus:bg-white focus:shadow-[0_3px_0_#2c2531]'
+                    }`}
+                  />
+                </div>
+
                 {/* Divider */}
                 <div
                   className={`my-1 h-[2px] ${
