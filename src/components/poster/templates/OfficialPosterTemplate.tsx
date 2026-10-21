@@ -226,7 +226,7 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
               {data.designation || 'DESIGNATION'}
             </p>
 
-            {/* Organization / University */}
+            {/* Organization / Department */}
             <p
               className="mt-1 font-semibold uppercase tracking-wider text-[#584488] leading-tight line-clamp-2 transition-all duration-150"
               style={{
@@ -235,7 +235,11 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
                 overflowWrap: 'break-word',
               }}
             >
-              {data.organization || 'CGC UNIVERSITY, MOHALI'}
+              {data.organization
+                ? data.department && !data.organization.includes('/')
+                  ? `${data.organization} / ${data.department}`
+                  : data.organization
+                : 'CGC UNIVERSITY / MOHALI'}
             </p>
           </div>
         </div>

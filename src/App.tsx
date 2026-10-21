@@ -130,11 +130,11 @@ export const App: React.FC = () => {
   // Active Role: Speaker | Startup | Investor | Host
   const [selectedRole, setSelectedRole] = useState<AttendeeRole>('Speaker');
 
-  // Exact requested fields: Full Name, Designation, Organization, Photo
+  // Exact requested fields: Full Name, Designation, Organization / Department, Photo
   const [formData, setFormData] = useState<PosterData>({
     name: 'Aarav Sharma',
     designation: 'Keynote Speaker',
-    organization: 'Tech Visionary',
+    organization: 'CGC University / CSE Dept',
     photoUrl: null,
     role: 'Speaker',
   });
@@ -159,16 +159,16 @@ export const App: React.FC = () => {
 
       if (role === 'Speaker') {
         defaultDesig = 'Keynote Speaker';
-        defaultOrg = 'Tech Visionary';
+        defaultOrg = 'CGC University / Tech Visionary';
       } else if (role === 'Startup') {
         defaultDesig = 'Founder & CEO';
-        defaultOrg = 'Acme Labs';
+        defaultOrg = 'Acme Labs / Innovation';
       } else if (role === 'Investor') {
         defaultDesig = 'Venture Partner';
-        defaultOrg = 'Angel Capital';
+        defaultOrg = 'Angel Capital / Ventures';
       } else if (role === 'Host') {
         defaultDesig = 'Mainstage Emcee';
-        defaultOrg = 'Saviskar 2026 Host';
+        defaultOrg = 'CGC University / Media & PR';
       }
 
       return {
@@ -687,7 +687,7 @@ export const App: React.FC = () => {
                   />
                 </div>
 
-                {/* Organization */}
+                {/* Organization / Department */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   <label
                     style={{
@@ -698,12 +698,12 @@ export const App: React.FC = () => {
                       color: isDark ? 'rgb(208, 225, 235)' : '#2c2531',
                     }}
                   >
-                    Organization
+                    Organization / Department
                     <span style={{ color: isDark ? 'rgb(8, 181, 173)' : '#e11d48' }}> *</span>
                   </label>
                   <input
                     type="text"
-                    placeholder="e.g. Acme Labs"
+                    placeholder="e.g. CGC University / CSE Dept"
                     required
                     value={formData.organization}
                     onChange={(e) =>
