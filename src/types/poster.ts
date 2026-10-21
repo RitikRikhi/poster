@@ -19,6 +19,9 @@ export interface PosterData {
   tagline?: string;
   handle?: string;
   photoUrl: string | null;
+  photoScale?: number;
+  photoOffsetY?: number;
+  photoOffsetX?: number;
   role: AttendeeRole;
   badgeType?: string;
   ratio?: PosterRatio;

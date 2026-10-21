@@ -30,6 +30,7 @@ export const PosterCanvas = forwardRef<HTMLDivElement, PosterCanvasProps>(
           transform: scale !== 1 ? `scale(${scale})` : undefined,
           transformOrigin: 'top center',
           containerType: 'inline-size',
+          color: '#120836',
         }}
       >
         <OfficialPosterTemplate data={data} />

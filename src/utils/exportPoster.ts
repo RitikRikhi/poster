@@ -55,20 +55,20 @@ export const exportPosterAsImage = async (
   try {
     const ratio = getOptimalPixelRatio(element);
 
-    // Generate ultra high resolution PNG
-    const dataUrl = await toPng(element, {
+    const exportOptions = {
       quality: 0.98,
       pixelRatio: ratio,
       cacheBust: true,
       skipFonts: true,
-    });
+      style: {
+        color: '#120836',
+      },
+    };
 
-    const blob = await toBlob(element, {
-      quality: 0.98,
-      pixelRatio: ratio,
-      cacheBust: true,
-      skipFonts: true,
-    });
+    // Generate ultra high resolution PNG
+    const dataUrl = await toPng(element, exportOptions);
+
+    const blob = await toBlob(element, exportOptions);
 
     // Clean up filename
     const sanitizedName = studentName.replace(/[^a-zA-Z0-9_-]/g, '_') || 'Attendee';
@@ -112,6 +112,9 @@ export const generatePosterBlob = async (
       pixelRatio: ratio,
       cacheBust: true,
       skipFonts: true,
+      style: {
+        color: '#120836',
+      },
     });
   } catch (err) {
     console.error('Failed to generate poster blob:', err);

@@ -136,6 +136,9 @@ export const App: React.FC = () => {
     designation: 'Keynote Speaker',
     organization: 'CGC University / CSE Dept',
     photoUrl: null,
+    photoScale: 1,
+    photoOffsetY: 0,
+    photoOffsetX: 0,
     role: 'Speaker',
   });
 
@@ -827,7 +830,8 @@ export const App: React.FC = () => {
                   </div>
 
                   {formData.photoUrl ? (
-                    /* Rich Visual Photo Preview Card for the user's uploaded image */
+                    <>
+                      {/* Rich Visual Photo Preview Card for the user's uploaded image */}
                     <div
                       className={`p-3.5 rounded-2xl flex items-center gap-4 transition-all ${
                         isDark
@@ -903,7 +907,149 @@ export const App: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                  ) : (
+
+                    {/* Photo Framing & Alignment Adjuster */}
+                    <div
+                      className={`p-3.5 rounded-2xl border transition-all ${
+                        isDark
+                          ? 'bg-white/5 border-white/10'
+                          : 'bg-[#faf9fc] border-[#2c2531]/15'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span
+                          className={`text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5 ${
+                            isDark ? 'text-silver-300' : 'text-[#2c2531]'
+                          }`}
+                        >
+                          <span>🎯</span>
+                          <span>Adjust Face Framing &amp; Zoom</span>
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFormData((prev) => ({
+                              ...prev,
+                              photoScale: 1,
+                              photoOffsetY: 0,
+                              photoOffsetX: 0,
+                            }));
+                            showToast('Framing reset to default! 🎯');
+                          }}
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-md transition-colors ${
+                            isDark
+                              ? 'bg-white/10 hover:bg-white/15 text-silver-300'
+                              : 'bg-white hover:bg-[#edeaf6] text-[#2c2531] border border-[#2c2531]/15'
+                          }`}
+                        >
+                          Reset
+                        </button>
+                      </div>
+
+                      <div className="space-y-2">
+                        {/* Zoom Slider */}
+                        <div className="flex items-center gap-2.5">
+                          <span
+                            className={`text-[10px] font-bold w-16 shrink-0 ${
+                              isDark ? 'text-silver-400' : 'text-[#716979]'
+                            }`}
+                          >
+                            🔍 Zoom
+                          </span>
+                          <input
+                            type="range"
+                            min="1"
+                            max="2.4"
+                            step="0.05"
+                            value={formData.photoScale ?? 1}
+                            onChange={(e) =>
+                              setFormData((prev) => ({
+                                ...prev,
+                                photoScale: parseFloat(e.target.value),
+                              }))
+                            }
+                            className="flex-1 accent-[#fd92fe] cursor-pointer"
+                          />
+                          <span
+                            className={`text-[10px] font-mono font-bold w-10 text-right ${
+                              isDark ? 'text-silver-300' : 'text-[#2c2531]'
+                            }`}
+                          >
+                            {((formData.photoScale ?? 1) * 100).toFixed(0)}%
+                          </span>
+                        </div>
+
+                        {/* Move Face Up / Down (Position Y) Slider */}
+                        <div className="flex items-center gap-2.5">
+                          <span
+                            className={`text-[10px] font-bold w-16 shrink-0 ${
+                              isDark ? 'text-silver-400' : 'text-[#716979]'
+                            }`}
+                          >
+                            ↕️ Up/Down
+                          </span>
+                          <input
+                            type="range"
+                            min="-35"
+                            max="35"
+                            step="1"
+                            value={formData.photoOffsetY ?? 0}
+                            onChange={(e) =>
+                              setFormData((prev) => ({
+                                ...prev,
+                                photoOffsetY: parseInt(e.target.value, 10),
+                              }))
+                            }
+                            className="flex-1 accent-[#5bbeeb] cursor-pointer"
+                          />
+                          <span
+                            className={`text-[10px] font-mono font-bold w-10 text-right ${
+                              isDark ? 'text-silver-300' : 'text-[#2c2531]'
+                            }`}
+                          >
+                            {(formData.photoOffsetY ?? 0) > 0
+                              ? `+${formData.photoOffsetY}`
+                              : formData.photoOffsetY}%
+                          </span>
+                        </div>
+
+                        {/* Move Left / Right (Position X) Slider */}
+                        <div className="flex items-center gap-2.5">
+                          <span
+                            className={`text-[10px] font-bold w-16 shrink-0 ${
+                              isDark ? 'text-silver-400' : 'text-[#716979]'
+                            }`}
+                          >
+                            ↔️ Left/Right
+                          </span>
+                          <input
+                            type="range"
+                            min="-30"
+                            max="30"
+                            step="1"
+                            value={formData.photoOffsetX ?? 0}
+                            onChange={(e) =>
+                              setFormData((prev) => ({
+                                ...prev,
+                                photoOffsetX: parseInt(e.target.value, 10),
+                              }))
+                            }
+                            className="flex-1 accent-[#fde047] cursor-pointer"
+                          />
+                          <span
+                            className={`text-[10px] font-mono font-bold w-10 text-right ${
+                              isDark ? 'text-silver-300' : 'text-[#2c2531]'
+                            }`}
+                          >
+                            {(formData.photoOffsetX ?? 0) > 0
+                              ? `+${formData.photoOffsetX}`
+                              : formData.photoOffsetX}%
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                ) : (
                     /* Clean Upload & Camera Options */
                     <div
                       className={`rounded-2xl overflow-hidden transition-all ${
