@@ -25,12 +25,13 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
   const nameWords = rawName.split(/\s+/);
   const longestNameWord = Math.max(...nameWords.map((w) => w.length), 0);
 
-  // Dynamic font sizing intelligence for Name Heading with robust rem/cqi fallbacks
+  // Dynamic font sizing intelligence for Name Heading with generous spacing and breathing room
   let nameInlineStyle: React.CSSProperties = {
     fontFamily: "'Plus Jakarta Sans', sans-serif",
-    fontSize: 'clamp(0.92rem, 3.0cqi, 1.85rem)',
-    lineHeight: '1.1',
-    letterSpacing: '-0.025em',
+    fontSize: 'clamp(0.95rem, 3.1cqi, 1.85rem)',
+    lineHeight: '1.2',
+    letterSpacing: '0.03em',
+    wordSpacing: '0.12em',
     color: '#120836',
   };
 
@@ -38,24 +39,27 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
     nameInlineStyle = {
       fontFamily: "'Plus Jakarta Sans', sans-serif",
       fontSize: 'clamp(0.72rem, 2.0cqi, 1.05rem)',
-      lineHeight: '1.16',
-      letterSpacing: '-0.01em',
+      lineHeight: '1.22',
+      letterSpacing: '0.02em',
+      wordSpacing: '0.08em',
       color: '#120836',
     };
   } else if (nameLen >= 22 || longestNameWord >= 11) {
     nameInlineStyle = {
       fontFamily: "'Plus Jakarta Sans', sans-serif",
-      fontSize: 'clamp(0.80rem, 2.35cqi, 1.25rem)',
-      lineHeight: '1.12',
-      letterSpacing: '-0.015em',
+      fontSize: 'clamp(0.82rem, 2.4cqi, 1.25rem)',
+      lineHeight: '1.2',
+      letterSpacing: '0.025em',
+      wordSpacing: '0.1em',
       color: '#120836',
     };
   } else if (nameLen >= 13 || longestNameWord >= 8) {
     nameInlineStyle = {
       fontFamily: "'Plus Jakarta Sans', sans-serif",
-      fontSize: 'clamp(0.86rem, 2.65cqi, 1.48rem)',
-      lineHeight: '1.1',
-      letterSpacing: '-0.02em',
+      fontSize: 'clamp(0.88rem, 2.75cqi, 1.5rem)',
+      lineHeight: '1.2',
+      letterSpacing: '0.03em',
+      wordSpacing: '0.12em',
       color: '#120836',
     };
   }
@@ -71,7 +75,7 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
         ? 'clamp(0.65rem, 1.85cqi, 0.94rem)'
         : 'clamp(0.72rem, 2.05cqi, 1.05rem)',
     lineHeight: '1.22',
-    letterSpacing: '0.04em',
+    letterSpacing: '0.05em',
     color: '#3c286b',
   };
 
@@ -172,15 +176,15 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
         className="absolute z-10 flex flex-col justify-start pointer-events-none"
         style={{
           left: '50.5%',
-          top: '43.5%',
+          top: '44.5%',
           width: '45.0%',
           maxHeight: '41%',
           overflow: 'hidden',
         }}
       >
-        {/* Full Name Heading - full width for crisp readability */}
+        {/* Full Name Heading - spacious letter-spacing & word-spacing */}
         <h1
-          className="font-black tracking-tight uppercase transition-all duration-150"
+          className="font-black uppercase transition-all duration-150"
           style={{
             ...nameInlineStyle,
             color: '#120836',
@@ -196,7 +200,7 @@ export const OfficialPosterTemplate: React.FC<OfficialPosterTemplateProps> = ({ 
           className="font-bold uppercase tracking-wider leading-tight line-clamp-2 transition-all duration-150"
           style={{
             ...desigStyle,
-            marginTop: '5px',
+            marginTop: '8px',
             color: '#3c286b',
             wordBreak: 'break-word',
             overflowWrap: 'break-word',
